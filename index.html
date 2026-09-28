@@ -29,7 +29,7 @@ img,canvas,svg{-webkit-user-drag:none;user-drag:none;max-width:100%}
 #shield{position:fixed;inset:0;z-index:1}
 
 /* top bar */
-.bar{position:fixed;inset-inline:0;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+.bar{transition:opacity .4s;position:fixed;inset-inline:0;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
   gap:12px;padding:calc(env(safe-area-inset-top,0px) + 14px) clamp(16px,4vw,44px) 22px;pointer-events:none;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0))}
 .mark{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:.01em;text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .mark small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--muted);font-weight:400;direction:ltr;text-align:right}
@@ -100,6 +100,7 @@ ul.duties li::before{content:"";position:absolute;inset-inline-start:0;top:.8em;
 #bio{position:relative;background:var(--black);padding-inline:clamp(16px,6vw,88px);padding-block:18vh 12vh;min-height:100vh}
 .bio-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
 #bio h2{font-size:clamp(30px,4vw,46px)}
+@media (max-width:760px){#bio .sig{letter-spacing:.14em;font-size:11px}}
 #bio .sig{font-family:var(--mono);direction:ltr;text-align:right;letter-spacing:.3em;font-size:12px;color:var(--faint);margin:-4px 0 26px}
 
 .contact{border:1px solid var(--line);padding:22px;display:grid;gap:14px}
@@ -121,11 +122,12 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 #bio .bio-text p{font-size:17px;line-height:1.95;color:#d9d4c9;max-width:none}
 .contact{border:1px solid var(--line);padding:clamp(20px,3vw,30px);display:grid;gap:18px}
 .contact h3{margin:0;font-family:var(--display);font-weight:600;font-size:22px}
+.crow + .qr{margin-top:-6px}
 .crow{display:grid;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .crow label{font-size:12.5px;color:var(--faint)}
 .crow .val{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .crow .val span{font-family:var(--mono);direction:ltr;font-size:clamp(15px,2.2vw,18px);color:var(--paper);-webkit-user-select:text;user-select:text;word-break:break-all}
-.qr{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding-top:6px}
+.qr{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding-top:6px;border-top:0}
 .qr .code{background:#f1ede4;padding:12px;width:min(200px,60vw);border-radius:2px}
 .qr .code svg{display:block;width:100%;height:auto}
 .qr p{font-size:14px;margin:0;color:var(--muted);max-width:32ch}
@@ -317,7 +319,7 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;}
   size();addEventListener("resize",size);
 
-  var bio=document.getElementById("bio"),blackout=document.getElementById("blackout"),staEl=document.getElementById("sta"),rail=document.getElementById("railfill");
+  var barEl=document.querySelector(".bar"),bio=document.getElementById("bio"),blackout=document.getElementById("blackout"),staEl=document.getElementById("sta"),rail=document.getElementById("railfill");
   var target=0,cur=0,mx=0,my=0,tmx=0,tmy=0;
   function prog(){var end=bio.offsetTop-innerHeight;return Math.max(0,Math.min(1,scrollY/Math.max(1,end)))}
   addEventListener("pointermove",function(e){if(e.pointerType==="mouse"){tmx=e.clientX/W*2-1;tmy=e.clientY/H*2-1}},{passive:true});
@@ -332,7 +334,7 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.drawImage(im,ox,oy,dw,dh);
     }
     // blackout as bio approaches
-    var r=bio.getBoundingClientRect().top/innerHeight; blackout.style.opacity=Math.max(0,Math.min(1,1-r));
+    var r=bio.getBoundingClientRect().top/innerHeight; blackout.style.opacity=Math.max(0,Math.min(1,1-r)); barEl.style.opacity=r<0.15?0:1;
     var m=Math.round(p*600); staEl.textContent="0+"+String(m).padStart(3,"0"); rail.style.height=(p*100)+"%";
     requestAnimationFrame(tick);
   }
