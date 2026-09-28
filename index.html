@@ -143,6 +143,10 @@ button.reveal:hover{filter:brightness(1.08)}button.reveal:focus-visible{outline:
 #pwform input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 #pwform button{font:inherit;font-weight:500;background:var(--accent);color:var(--ink);border:0;padding:10px 26px;border-radius:3px;cursor:pointer}
 #pwerr{color:#e8a598;font-size:14px;min-height:1.4em;margin:0}
+#wmk{position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22360%22%20height%3D%22220%22%3E%3Cg%20transform%3D%22rotate%28-24%20180%20110%29%22%20font-family%3D%22Tahoma%2Csans-serif%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.13%29%22%3E%3Ctext%20x%3D%2240%22%20y%3D%22100%22%20font-size%3D%2220%22%3E%D9%85.%20%D8%A3%D8%AD%D9%85%D8%AF%20%D8%A8%D9%83%D8%B1%D8%A7%D9%86%20%C2%B7%20%D8%AE%D8%A7%D8%B5%3C/text%3E%3Ctext%20x%3D%2260%22%20y%3D%22130%22%20font-size%3D%2212%22%20letter-spacing%3D%223%22%3E%C2%A9%20AHMED%20BAKRAN%20%C2%B7%20PRIVATE%3C/text%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat}
+body.guard #stage{filter:blur(28px) brightness(.5)}
+body.guard main,body.guard .bar{filter:blur(10px)}
+#guardmsg{position:fixed;inset:0;z-index:40;display:grid;place-items:center;pointer-events:none;font-family:var(--display);font-size:22px;color:var(--paper);text-align:center;padding:24px}
 .foot{max-width:760px;margin:10vh auto 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:16px}
 
 /* lock + loader */
@@ -176,7 +180,8 @@ button.reveal:hover{filter:brightness(1.08)}button.reveal:focus-visible{outline:
   </div>
 </div>
 
-<div id="stage" aria-hidden="true"><canvas id="cv"></canvas><div id="shade"></div><div id="blackout"></div></div>
+<div id="stage" aria-hidden="true"><canvas id="cv"></canvas><div id="shade"></div><div id="blackout"></div><div id="wmk"></div></div>
+<div id="guardmsg" hidden>المحتوى محمي · عُد إلى الصفحة للمتابعة</div>
 <div id="shield" aria-hidden="true"></div>
 
 <header class="bar">
@@ -327,6 +332,16 @@ button.reveal:hover{filter:brightness(1.08)}button.reveal:focus-visible{outline:
 
   var rv=document.getElementById("reveal");
   rv.addEventListener("click",function(){var c=document.getElementById("cinfo");c.hidden=!c.hidden;rv.setAttribute("aria-expanded",String(!c.hidden));rv.textContent=c.hidden?"إظهار بيانات التواصل":"إخفاء بيانات التواصل";});
+  // screen-capture deterrents: hide content when the page loses focus or PrintScreen is pressed
+  var gm=document.getElementById("guardmsg"),gt=null;
+  function guard(on){document.body.classList.toggle("guard",on);gm.hidden=!on;}
+  function flash(ms){guard(true);clearTimeout(gt);gt=setTimeout(function(){if(document.hasFocus()&&!document.hidden)guard(false)},ms)}
+  document.addEventListener("visibilitychange",function(){if(document.hidden)guard(true);else flash(600)});
+  addEventListener("blur",function(){guard(true)});
+  addEventListener("focus",function(){flash(400)});
+  addEventListener("pagehide",function(){guard(true)});
+  document.addEventListener("keyup",function(e){if(e.key==="PrintScreen"){flash(2500);try{navigator.clipboard.writeText("© Ahmed Bakran · محتوى خاص").catch(function(){})}catch(_){}}});
+  document.addEventListener("keydown",function(e){var k=(e.key||"").toLowerCase();if(e.key==="PrintScreen"||(e.metaKey&&e.shiftKey&&["3","4","5","s"].indexOf(k)>-1)||(e.key==="Meta"&&e.shiftKey)){flash(2500)}});
   // copy buttons
   document.querySelectorAll("button.copy").forEach(function(b){b.addEventListener("click",function(){
     var v=b.getAttribute("data-v");
