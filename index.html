@@ -135,6 +135,14 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .thanks{text-align:center;padding-block:4vh 0}
 .thanks .ty{font-family:var(--display);font-size:clamp(30px,5vw,44px);font-weight:600;color:var(--paper);margin:0 auto 6px;max-width:none}
 .thanks p{color:var(--muted);margin:0 auto;max-width:none}
+#cinfo{display:grid;gap:18px}
+button.reveal{font:inherit;font-size:16px;font-weight:500;color:var(--ink);background:var(--accent);border:0;padding:14px 20px;border-radius:3px;cursor:pointer;width:100%}
+button.reveal:hover{filter:brightness(1.08)}button.reveal:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+#pwform{display:grid;gap:12px;margin-top:18px;justify-items:center}
+#pwform input{font:inherit;font-size:16px;text-align:center;background:transparent;color:var(--paper);border:1px solid var(--line);padding:12px 14px;border-radius:3px;width:min(280px,80vw);direction:ltr}
+#pwform input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#pwform button{font:inherit;font-weight:500;background:var(--accent);color:var(--ink);border:0;padding:10px 26px;border-radius:3px;cursor:pointer}
+#pwerr{color:#e8a598;font-size:14px;min-height:1.4em;margin:0}
 .foot{max-width:760px;margin:10vh auto 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:16px}
 
 /* lock + loader */
@@ -158,7 +166,13 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 <div id="lock" hidden>
   <div>
     <h2>سيرة خاصة</h2>
-    <p>تُعرض هذه الصفحة عند مسح رمز QR المطبوع على بطاقة المهندس أحمد بكران.</p>
+    <p id="lockmsg">تُعرض هذه الصفحة عند مسح رمز QR المطبوع على بطاقة المهندس أحمد بكران.</p>
+    <form id="pwform" hidden autocomplete="off">
+      <label for="pw" style="font-size:14px;color:var(--muted)">أدخل الرمز السري للعرض على الكمبيوتر</label>
+      <input id="pw" type="password" inputmode="text" autocomplete="current-password">
+      <button type="submit">دخول</button>
+      <p id="pwerr" role="alert"></p>
+    </form>
   </div>
 </div>
 
@@ -260,11 +274,10 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
       <div class="contact">
         <h3>للتواصل</h3>
+        <button class="reveal" id="reveal" aria-expanded="false" aria-controls="cinfo">إظهار بيانات التواصل</button>
+        <div id="cinfo" hidden>
         <div class="crow"><label>الجوال وواتساب</label><div class="val"><span>+966 54 917 3530</span><button class="copy" id="c1" data-v="+966549173530">نسخ</button></div></div>
         <div class="crow"><label>البريد الإلكتروني</label><div class="val"><span>eng.ahmedb882013@hotmail.com</span><button class="copy" id="c2" data-v="eng.ahmedb882013@hotmail.com">نسخ</button></div></div>
-        <div class="qr">
-          <div class="code" role="img" aria-label="رمز QR لحفظ الجوال والبريد"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" shape-rendering="crispEdges"><path fill="#0b0d0c" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM16 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM29 0h1v1h-1zM30 0h1v1h-1zM31 0h1v1h-1zM33 0h1v1h-1zM36 0h1v1h-1zM38 0h1v1h-1zM39 0h1v1h-1zM40 0h1v1h-1zM41 0h1v1h-1zM42 0h1v1h-1zM43 0h1v1h-1zM44 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h1v1h-1zM11 1h1v1h-1zM14 1h1v1h-1zM15 1h1v1h-1zM16 1h1v1h-1zM19 1h1v1h-1zM21 1h1v1h-1zM23 1h1v1h-1zM24 1h1v1h-1zM27 1h1v1h-1zM29 1h1v1h-1zM30 1h1v1h-1zM31 1h1v1h-1zM33 1h1v1h-1zM35 1h1v1h-1zM38 1h1v1h-1zM44 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM30 2h1v1h-1zM32 2h1v1h-1zM33 2h1v1h-1zM35 2h1v1h-1zM38 2h1v1h-1zM40 2h1v1h-1zM41 2h1v1h-1zM42 2h1v1h-1zM44 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM25 3h1v1h-1zM29 3h1v1h-1zM30 3h1v1h-1zM31 3h1v1h-1zM35 3h1v1h-1zM36 3h1v1h-1zM38 3h1v1h-1zM40 3h1v1h-1zM41 3h1v1h-1zM42 3h1v1h-1zM44 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM11 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM23 4h1v1h-1zM24 4h1v1h-1zM27 4h1v1h-1zM28 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM31 4h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM36 4h1v1h-1zM38 4h1v1h-1zM40 4h1v1h-1zM41 4h1v1h-1zM42 4h1v1h-1zM44 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM12 5h1v1h-1zM15 5h1v1h-1zM18 5h1v1h-1zM20 5h1v1h-1zM24 5h1v1h-1zM27 5h1v1h-1zM28 5h1v1h-1zM33 5h1v1h-1zM38 5h1v1h-1zM44 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM38 6h1v1h-1zM39 6h1v1h-1zM40 6h1v1h-1zM41 6h1v1h-1zM42 6h1v1h-1zM43 6h1v1h-1zM44 6h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM13 7h1v1h-1zM15 7h1v1h-1zM19 7h1v1h-1zM20 7h1v1h-1zM24 7h1v1h-1zM26 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM31 7h1v1h-1zM32 7h1v1h-1zM33 7h1v1h-1zM36 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM22 8h1v1h-1zM23 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM27 8h1v1h-1zM29 8h1v1h-1zM35 8h1v1h-1zM38 8h1v1h-1zM39 8h1v1h-1zM40 8h1v1h-1zM41 8h1v1h-1zM42 8h1v1h-1zM0 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM11 9h1v1h-1zM12 9h1v1h-1zM13 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM27 9h1v1h-1zM28 9h1v1h-1zM30 9h1v1h-1zM31 9h1v1h-1zM36 9h1v1h-1zM39 9h1v1h-1zM40 9h1v1h-1zM42 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM19 10h1v1h-1zM21 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM25 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM29 10h1v1h-1zM31 10h1v1h-1zM36 10h1v1h-1zM37 10h1v1h-1zM38 10h1v1h-1zM40 10h1v1h-1zM42 10h1v1h-1zM43 10h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM12 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM27 11h1v1h-1zM28 11h1v1h-1zM32 11h1v1h-1zM33 11h1v1h-1zM35 11h1v1h-1zM36 11h1v1h-1zM37 11h1v1h-1zM40 11h1v1h-1zM41 11h1v1h-1zM42 11h1v1h-1zM44 11h1v1h-1zM0 12h1v1h-1zM2 12h1v1h-1zM6 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM13 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM29 12h1v1h-1zM30 12h1v1h-1zM31 12h1v1h-1zM37 12h1v1h-1zM39 12h1v1h-1zM42 12h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM25 13h1v1h-1zM28 13h1v1h-1zM29 13h1v1h-1zM30 13h1v1h-1zM32 13h1v1h-1zM35 13h1v1h-1zM36 13h1v1h-1zM37 13h1v1h-1zM39 13h1v1h-1zM40 13h1v1h-1zM41 13h1v1h-1zM44 13h1v1h-1zM0 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM13 14h1v1h-1zM15 14h1v1h-1zM18 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM24 14h1v1h-1zM28 14h1v1h-1zM33 14h1v1h-1zM34 14h1v1h-1zM38 14h1v1h-1zM39 14h1v1h-1zM42 14h1v1h-1zM43 14h1v1h-1zM1 15h1v1h-1zM2 15h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM9 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM23 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM27 15h1v1h-1zM30 15h1v1h-1zM33 15h1v1h-1zM34 15h1v1h-1zM36 15h1v1h-1zM37 15h1v1h-1zM40 15h1v1h-1zM42 15h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM13 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM31 16h1v1h-1zM36 16h1v1h-1zM38 16h1v1h-1zM39 16h1v1h-1zM41 16h1v1h-1zM43 16h1v1h-1zM5 17h1v1h-1zM10 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM18 17h1v1h-1zM23 17h1v1h-1zM24 17h1v1h-1zM25 17h1v1h-1zM29 17h1v1h-1zM30 17h1v1h-1zM32 17h1v1h-1zM33 17h1v1h-1zM35 17h1v1h-1zM36 17h1v1h-1zM42 17h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM17 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM21 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM24 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM31 18h1v1h-1zM34 18h1v1h-1zM35 18h1v1h-1zM37 18h1v1h-1zM38 18h1v1h-1zM39 18h1v1h-1zM40 18h1v1h-1zM43 18h1v1h-1zM0 19h1v1h-1zM1 19h1v1h-1zM2 19h1v1h-1zM7 19h1v1h-1zM12 19h1v1h-1zM15 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM23 19h1v1h-1zM26 19h1v1h-1zM27 19h1v1h-1zM32 19h1v1h-1zM33 19h1v1h-1zM34 19h1v1h-1zM36 19h1v1h-1zM39 19h1v1h-1zM40 19h1v1h-1zM42 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM33 20h1v1h-1zM36 20h1v1h-1zM37 20h1v1h-1zM38 20h1v1h-1zM39 20h1v1h-1zM40 20h1v1h-1zM41 20h1v1h-1zM43 20h1v1h-1zM44 20h1v1h-1zM0 21h1v1h-1zM4 21h1v1h-1zM8 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM29 21h1v1h-1zM30 21h1v1h-1zM31 21h1v1h-1zM36 21h1v1h-1zM40 21h1v1h-1zM41 21h1v1h-1zM42 21h1v1h-1zM44 21h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM15 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM28 22h1v1h-1zM29 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM33 22h1v1h-1zM34 22h1v1h-1zM35 22h1v1h-1zM36 22h1v1h-1zM38 22h1v1h-1zM40 22h1v1h-1zM41 22h1v1h-1zM42 22h1v1h-1zM4 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM12 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM16 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM27 23h1v1h-1zM30 23h1v1h-1zM31 23h1v1h-1zM32 23h1v1h-1zM33 23h1v1h-1zM36 23h1v1h-1zM40 23h1v1h-1zM41 23h1v1h-1zM42 23h1v1h-1zM44 23h1v1h-1zM1 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM7 24h1v1h-1zM8 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM26 24h1v1h-1zM30 24h1v1h-1zM33 24h1v1h-1zM34 24h1v1h-1zM35 24h1v1h-1zM36 24h1v1h-1zM37 24h1v1h-1zM38 24h1v1h-1zM39 24h1v1h-1zM40 24h1v1h-1zM42 24h1v1h-1zM43 24h1v1h-1zM44 24h1v1h-1zM3 25h1v1h-1zM5 25h1v1h-1zM7 25h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM16 25h1v1h-1zM18 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM28 25h1v1h-1zM30 25h1v1h-1zM31 25h1v1h-1zM32 25h1v1h-1zM35 25h1v1h-1zM36 25h1v1h-1zM42 25h1v1h-1zM1 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM7 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM11 26h1v1h-1zM12 26h1v1h-1zM15 26h1v1h-1zM16 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM21 26h1v1h-1zM22 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h1v1h-1zM33 26h1v1h-1zM41 26h1v1h-1zM42 26h1v1h-1zM43 26h1v1h-1zM0 27h1v1h-1zM5 27h1v1h-1zM10 27h1v1h-1zM11 27h1v1h-1zM13 27h1v1h-1zM14 27h1v1h-1zM15 27h1v1h-1zM17 27h1v1h-1zM19 27h1v1h-1zM24 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM28 27h1v1h-1zM29 27h1v1h-1zM33 27h1v1h-1zM34 27h1v1h-1zM35 27h1v1h-1zM36 27h1v1h-1zM37 27h1v1h-1zM38 27h1v1h-1zM40 27h1v1h-1zM41 27h1v1h-1zM42 27h1v1h-1zM44 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM6 28h1v1h-1zM7 28h1v1h-1zM8 28h1v1h-1zM11 28h1v1h-1zM12 28h1v1h-1zM14 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM30 28h1v1h-1zM31 28h1v1h-1zM34 28h1v1h-1zM38 28h1v1h-1zM39 28h1v1h-1zM44 28h1v1h-1zM1 29h1v1h-1zM3 29h1v1h-1zM5 29h1v1h-1zM9 29h1v1h-1zM10 29h1v1h-1zM11 29h1v1h-1zM14 29h1v1h-1zM18 29h1v1h-1zM20 29h1v1h-1zM24 29h1v1h-1zM25 29h1v1h-1zM28 29h1v1h-1zM30 29h1v1h-1zM38 29h1v1h-1zM44 29h1v1h-1zM0 30h1v1h-1zM6 30h1v1h-1zM8 30h1v1h-1zM10 30h1v1h-1zM11 30h1v1h-1zM12 30h1v1h-1zM13 30h1v1h-1zM14 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM20 30h1v1h-1zM24 30h1v1h-1zM27 30h1v1h-1zM34 30h1v1h-1zM36 30h1v1h-1zM37 30h1v1h-1zM43 30h1v1h-1zM3 31h1v1h-1zM4 31h1v1h-1zM5 31h1v1h-1zM10 31h1v1h-1zM11 31h1v1h-1zM12 31h1v1h-1zM14 31h1v1h-1zM16 31h1v1h-1zM17 31h1v1h-1zM18 31h1v1h-1zM19 31h1v1h-1zM22 31h1v1h-1zM23 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM26 31h1v1h-1zM27 31h1v1h-1zM30 31h1v1h-1zM31 31h1v1h-1zM33 31h1v1h-1zM37 31h1v1h-1zM39 31h1v1h-1zM40 31h1v1h-1zM42 31h1v1h-1zM43 31h1v1h-1zM1 32h1v1h-1zM5 32h1v1h-1zM6 32h1v1h-1zM15 32h1v1h-1zM18 32h1v1h-1zM21 32h1v1h-1zM29 32h1v1h-1zM31 32h1v1h-1zM36 32h1v1h-1zM37 32h1v1h-1zM40 32h1v1h-1zM43 32h1v1h-1zM0 33h1v1h-1zM3 33h1v1h-1zM4 33h1v1h-1zM8 33h1v1h-1zM10 33h1v1h-1zM12 33h1v1h-1zM14 33h1v1h-1zM19 33h1v1h-1zM20 33h1v1h-1zM21 33h1v1h-1zM22 33h1v1h-1zM23 33h1v1h-1zM29 33h1v1h-1zM30 33h1v1h-1zM32 33h1v1h-1zM33 33h1v1h-1zM36 33h1v1h-1zM39 33h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM7 34h1v1h-1zM8 34h1v1h-1zM9 34h1v1h-1zM10 34h1v1h-1zM11 34h1v1h-1zM12 34h1v1h-1zM14 34h1v1h-1zM16 34h1v1h-1zM17 34h1v1h-1zM25 34h1v1h-1zM26 34h1v1h-1zM30 34h1v1h-1zM32 34h1v1h-1zM34 34h1v1h-1zM36 34h1v1h-1zM39 34h1v1h-1zM42 34h1v1h-1zM43 34h1v1h-1zM1 35h1v1h-1zM2 35h1v1h-1zM3 35h1v1h-1zM4 35h1v1h-1zM8 35h1v1h-1zM11 35h1v1h-1zM14 35h1v1h-1zM18 35h1v1h-1zM19 35h1v1h-1zM20 35h1v1h-1zM21 35h1v1h-1zM22 35h1v1h-1zM23 35h1v1h-1zM24 35h1v1h-1zM25 35h1v1h-1zM27 35h1v1h-1zM28 35h1v1h-1zM30 35h1v1h-1zM32 35h1v1h-1zM34 35h1v1h-1zM38 35h1v1h-1zM39 35h1v1h-1zM40 35h1v1h-1zM42 35h1v1h-1zM43 35h1v1h-1zM0 36h1v1h-1zM3 36h1v1h-1zM4 36h1v1h-1zM6 36h1v1h-1zM7 36h1v1h-1zM11 36h1v1h-1zM12 36h1v1h-1zM16 36h1v1h-1zM17 36h1v1h-1zM19 36h1v1h-1zM20 36h1v1h-1zM21 36h1v1h-1zM22 36h1v1h-1zM23 36h1v1h-1zM24 36h1v1h-1zM25 36h1v1h-1zM31 36h1v1h-1zM34 36h1v1h-1zM36 36h1v1h-1zM37 36h1v1h-1zM38 36h1v1h-1zM39 36h1v1h-1zM40 36h1v1h-1zM41 36h1v1h-1zM43 36h1v1h-1zM8 37h1v1h-1zM9 37h1v1h-1zM10 37h1v1h-1zM13 37h1v1h-1zM14 37h1v1h-1zM15 37h1v1h-1zM16 37h1v1h-1zM17 37h1v1h-1zM18 37h1v1h-1zM20 37h1v1h-1zM24 37h1v1h-1zM25 37h1v1h-1zM29 37h1v1h-1zM30 37h1v1h-1zM36 37h1v1h-1zM40 37h1v1h-1zM41 37h1v1h-1zM42 37h1v1h-1zM44 37h1v1h-1zM0 38h1v1h-1zM1 38h1v1h-1zM2 38h1v1h-1zM3 38h1v1h-1zM4 38h1v1h-1zM5 38h1v1h-1zM6 38h1v1h-1zM9 38h1v1h-1zM11 38h1v1h-1zM12 38h1v1h-1zM14 38h1v1h-1zM15 38h1v1h-1zM16 38h1v1h-1zM20 38h1v1h-1zM22 38h1v1h-1zM24 38h1v1h-1zM27 38h1v1h-1zM31 38h1v1h-1zM34 38h1v1h-1zM35 38h1v1h-1zM36 38h1v1h-1zM38 38h1v1h-1zM40 38h1v1h-1zM41 38h1v1h-1zM0 39h1v1h-1zM6 39h1v1h-1zM8 39h1v1h-1zM9 39h1v1h-1zM14 39h1v1h-1zM15 39h1v1h-1zM17 39h1v1h-1zM18 39h1v1h-1zM19 39h1v1h-1zM20 39h1v1h-1zM24 39h1v1h-1zM25 39h1v1h-1zM26 39h1v1h-1zM27 39h1v1h-1zM31 39h1v1h-1zM32 39h1v1h-1zM35 39h1v1h-1zM36 39h1v1h-1zM40 39h1v1h-1zM41 39h1v1h-1zM42 39h1v1h-1zM43 39h1v1h-1zM44 39h1v1h-1zM0 40h1v1h-1zM2 40h1v1h-1zM3 40h1v1h-1zM4 40h1v1h-1zM6 40h1v1h-1zM8 40h1v1h-1zM11 40h1v1h-1zM17 40h1v1h-1zM20 40h1v1h-1zM21 40h1v1h-1zM22 40h1v1h-1zM23 40h1v1h-1zM24 40h1v1h-1zM26 40h1v1h-1zM33 40h1v1h-1zM36 40h1v1h-1zM37 40h1v1h-1zM38 40h1v1h-1zM39 40h1v1h-1zM40 40h1v1h-1zM42 40h1v1h-1zM43 40h1v1h-1zM0 41h1v1h-1zM2 41h1v1h-1zM3 41h1v1h-1zM4 41h1v1h-1zM6 41h1v1h-1zM8 41h1v1h-1zM9 41h1v1h-1zM10 41h1v1h-1zM12 41h1v1h-1zM13 41h1v1h-1zM29 41h1v1h-1zM30 41h1v1h-1zM31 41h1v1h-1zM32 41h1v1h-1zM33 41h1v1h-1zM35 41h1v1h-1zM37 41h1v1h-1zM40 41h1v1h-1zM43 41h1v1h-1zM44 41h1v1h-1zM0 42h1v1h-1zM2 42h1v1h-1zM3 42h1v1h-1zM4 42h1v1h-1zM6 42h1v1h-1zM8 42h1v1h-1zM10 42h1v1h-1zM13 42h1v1h-1zM14 42h1v1h-1zM16 42h1v1h-1zM17 42h1v1h-1zM21 42h1v1h-1zM25 42h1v1h-1zM26 42h1v1h-1zM27 42h1v1h-1zM28 42h1v1h-1zM30 42h1v1h-1zM31 42h1v1h-1zM33 42h1v1h-1zM36 42h1v1h-1zM38 42h1v1h-1zM39 42h1v1h-1zM42 42h1v1h-1zM43 42h1v1h-1zM0 43h1v1h-1zM6 43h1v1h-1zM11 43h1v1h-1zM15 43h1v1h-1zM17 43h1v1h-1zM19 43h1v1h-1zM20 43h1v1h-1zM22 43h1v1h-1zM23 43h1v1h-1zM25 43h1v1h-1zM26 43h1v1h-1zM27 43h1v1h-1zM28 43h1v1h-1zM29 43h1v1h-1zM32 43h1v1h-1zM33 43h1v1h-1zM35 43h1v1h-1zM36 43h1v1h-1zM40 43h1v1h-1zM41 43h1v1h-1zM42 43h1v1h-1zM0 44h1v1h-1zM1 44h1v1h-1zM2 44h1v1h-1zM3 44h1v1h-1zM4 44h1v1h-1zM5 44h1v1h-1zM6 44h1v1h-1zM8 44h1v1h-1zM10 44h1v1h-1zM12 44h1v1h-1zM13 44h1v1h-1zM14 44h1v1h-1zM16 44h1v1h-1zM17 44h1v1h-1zM21 44h1v1h-1zM22 44h1v1h-1zM24 44h1v1h-1zM33 44h1v1h-1zM34 44h1v1h-1zM36 44h1v1h-1zM37 44h1v1h-1zM38 44h1v1h-1zM39 44h1v1h-1zM40 44h1v1h-1zM43 44h1v1h-1z"/></svg></div>
-          <p><b>امسح لحفظ الجوال والبريد</b>يضيف الرقم والبريد الإلكتروني مباشرةً إلى جهات الاتصال.</p>
         </div>
       </div>
 
@@ -279,9 +292,29 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 <script>
 (function(){
-  var KEY="cv6046b3f0bb";
+  var KEY="cv6046b3f0bb", PH="eabddd175f7b230f40fd901ff6e137f584157b8bfdc47db0cc7a66e452a631de";
+  var lock=document.getElementById("lock");
+  var desk=window.matchMedia("(hover:hover) and (pointer:fine)").matches && innerWidth>=900;
+  function shut(){lock.hidden=false;document.body.style.overflow="hidden";}
+  if(desk){
+    var saved=null;try{saved=localStorage.getItem("cvk")}catch(e){}
+    if(saved===PH){boot();}
+    else{
+      shut();document.getElementById("lockmsg").textContent="صفحة العرض على الكمبيوتر خاصة بصاحب السيرة.";
+      var f=document.getElementById("pwform");f.hidden=false;var inp=document.getElementById("pw");inp.focus();
+      f.addEventListener("submit",async function(e){e.preventDefault();
+        var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(inp.value));
+        var hex=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");
+        if(hex===PH){try{localStorage.setItem("cvk",PH)}catch(e){}lock.hidden=true;document.body.style.overflow="";boot();}
+        else{document.getElementById("pwerr").textContent="الرمز غير صحيح، حاول مرة أخرى.";inp.select();}
+      });
+    }
+    return;
+  }
   var h=(location.hash||"").replace("#","");
-  if(h!==KEY){document.getElementById("lock").hidden=false;document.body.style.overflow="hidden";return;}
+  if(h!==KEY){shut();return;}
+  boot();
+  function boot(){
   try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}
 
   // protection: no context menu, drag, copy of page content, save/print/source shortcuts
@@ -292,6 +325,8 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   document.addEventListener("keydown",function(e){var k=(e.key||"").toLowerCase();
     if(k==="f12"||(e.ctrlKey||e.metaKey)&&["s","u","p","a"].indexOf(k)>-1||(e.ctrlKey||e.metaKey)&&e.shiftKey&&["i","j","c"].indexOf(k)>-1){e.preventDefault();}});
 
+  var rv=document.getElementById("reveal");
+  rv.addEventListener("click",function(){var c=document.getElementById("cinfo");c.hidden=!c.hidden;rv.setAttribute("aria-expanded",String(!c.hidden));rv.textContent=c.hidden?"إظهار بيانات التواصل":"إخفاء بيانات التواصل";});
   // copy buttons
   document.querySelectorAll("button.copy").forEach(function(b){b.addEventListener("click",function(){
     var v=b.getAttribute("data-v");
@@ -315,6 +350,7 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   function nearest(i){if(frames[i])return frames[i];for(var d=1;d<N;d++){if(frames[i-d])return frames[i-d];if(frames[i+d])return frames[i+d];}return null}
 
+  var small=document.createElement("canvas");small.width=small.height=28;var sctx=small.getContext("2d");
   var dpr=Math.min(window.devicePixelRatio||1,2),W=0,H=0;
   function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;}
   size();addEventListener("resize",size);
@@ -329,9 +365,18 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     cur+= (target-cur)*0.12; mx+=(tmx-mx)*0.06; my+=(tmy-my)*0.06;
     var im=nearest(Math.round(cur));
     if(im){
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      if(W<H*0.9){
+        // phone portrait: blurred fill behind, whole square frame on top
+        sctx.drawImage(im,0,0,28,28);
+        var bs=Math.max(W,H)*1.1;ctx.imageSmoothingEnabled=true;
+        ctx.drawImage(small,0,0,28,28,(W-bs)/2,(H-bs)/2,bs,bs);
+        ctx.fillStyle="rgba(0,0,0,.35)";ctx.fillRect(0,0,W,H);
+        var dw=W, dh=W*im.height/im.width, ox=0, oy=Math.max(58,H*0.09);
+      } else {
       var z=1.05, sc=Math.max(W/im.width,H/im.height)*z, dw=im.width*sc, dh=im.height*sc;
       var ox=(W-dw)/2 - mx*W*0.035, oy=(H-dh)/2 - my*H*0.03;
-      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.drawImage(im,ox,oy,dw,dh);
+      }ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.drawImage(im,ox,oy,dw,dh);
     }
     // blackout as bio approaches
     var r=bio.getBoundingClientRect().top/innerHeight; blackout.style.opacity=Math.max(0,Math.min(1,1-r)); barEl.style.opacity=r<0.15?0:1;
@@ -339,5 +384,6 @@ button.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+}
 })();
 </script>
